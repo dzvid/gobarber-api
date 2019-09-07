@@ -297,6 +297,8 @@ Aula - Configurando multer (feature de upload de arquivos)
   upload.single('file') para tratar o upload de apenas 01 arquivo por vez
   ('files' é o nome do campo do arquivo na requisição);
 
+-----------------------
+
 Aula - Avatar do usuário
 
 As informações retornadas pelo multer que importam são o antigo nome e o novo nome do aquivo
@@ -330,6 +332,7 @@ entre os campos avatar_id (User) e id (File), usando o metodo associate no model
 Após isto, chamamos o método no Loader de models.
 
 -----------------------
+
 Aula - Listagem de prestadores de serviços
 
 3.1 Criação da rota('/providers') para listar prestadores de serviços e
@@ -339,3 +342,30 @@ para provider (funcionalidades, caracteristicas próprias, etc) é interessante 
 uma entidade para provider). O ProviderController também manipula o model User.
 
 3.2 Configuramos o express para servir arquivos estáticos via um middleware no App.js
+
+-----------------------
+
+Aula - Migration e Model de agendamento
+
+Descrição: Um usuario pode realizar agendamentos em serviços. Um serviço é disponibilizado por um
+          provedor de serviços. Um agendamento possui uma data de criação e quando será o atendimento.
+          Quando um agendamento for cancelado, deve ser registrado a data e hora de cancelamento.
+          Quando um usuario ou provedor de serviços for excluido, deve se manter o historico de agendamento.
+
+4.1 A tabela de agendamento armazena o registro dos agendamentos que um usuario possui com
+cada prestador de servico. Iniciamos criando a migration de agendamentos (appointments):
+  yarn sequelize migration:create --name=create-appointments
+
+  Também realizamos 02 relacionamentos da tabela appointment com a tabela users:
+    - Um relacionamento para indicar qual o usuario que esta agendando o serviço;
+    - Um relacionameto para indicar qual o usuario (provider) que esta provend o serviço.
+
+  Após configurarmos a migration, executamos-a:
+    yarn sequelize db:migrate
+
+4.2 Criação do model de Agendamento:
+  4.2.1 Criamos o model Appointment.js
+
+  4.2.2 Implementamos o relacionamento por meio do metodo associate.
+
+  4.2.3 Adicionamos o model de Agendamento no Loader de models.
