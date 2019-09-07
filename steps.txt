@@ -1,0 +1,341 @@
+Escopo do projeto: Construir uma aplicação de serviços de beleza. Possui dois usuários:
+o provedor do serviço(provider) e o cliente.
+
+1. Inicia o projeto:
+  yarn init -y
+2. Cria a estrutura básica do projeto:
+  src/
+      app.js (Configuração do servidor express, configura as rotas e middlewares)
+      routes.js (Rotas da aplicação (Parte de roteamento do express, usando o Router))
+      server.js (Cria o servidor de fato(instância))
+
+  O Diego comenta que no backend normalmente ele implementa as classes.
+  Já no frontend ele não tem o costume de usar classes.
+
+3.
+  -  Cria a classe da App da aplicação no app.js
+  e implementa os métodos necessários (middlewares e routes).
+  - Configuramos nossas rotas no routes.js
+  - Implementamos o servidor no server.js
+
+4. Configuramos o Node para interpretar a nova sintaxe do Javascript (ES6+).
+  Para isto usaremos o Sucrase. Configuramos o nodemon também.
+  Ambos como dependencia de desenvolvimento:
+  yarn add sucrase nodemon -D
+
+5. Configuramos o projeto para executar com o Sucrase
+  (na vdd configuramos o sucrase pra transpilar nosso código):
+
+  yarn sucrase-node src/server.js
+
+  mas é melhor criarmos um script junto com o nodemon:
+  5.1 Criamos o script no package.json:
+       "dev": "nodemon src/server.js"
+  5.2 Configuramos o nodemon para usar o sucrase e não o node para arquivos javascript,
+  criando um arquivo de configuração nodemon.json na raiz do projeto, contendo:
+    {
+      "execMap":{
+        "js": "sucrase-node"
+      }
+    }
+
+Aula do docker:
+6. Instalar o docker.
+
+7. Instalamos os nossos serviços no docker:
+  7.1 Instalando PostgreSQL:
+    docker pull postgres
+
+    7.1.1 Criei um container pro banco de dados da aplicação, chamei o container de 'container_db_gobarber':
+      docker run --name container_db_gobarber -e POSTGRES_PASSWORD=gobarberdev -p 5432:5432 -d postgres
+      container_db_gobarber.: Nome do container
+      gobarberdev.: Senha para do usuario postgres do banco de dados
+      -p 5432:5432.: Redirecionamento da porta do localhost:container
+      -d postgres.: Nome da imagem que quer utilizar
+
+    7.1.2 Instalou o Postbird (GUI pra gerenciar o PostgreSQL).
+
+    7.1.3 Criou o banco de dados (schema): 'gobarber'
+
+Aula Sequelize e MVC
+8. Explica sobre ORM (especificamente usando o Sequelize) e padrão MVC
+
+Aula ESLint, Prettier e editorConfig
+(Prettier fazer a formatação e o ESLint cuidar das regras,
+editorConfig definir padrão de config de editor pro time de dev)
+9. Configurando ferramentas para ditar o padrão de código
+  9.1 Instalar o ESLint como dependencia de desenvolvimento
+    yarn add eslint -D
+
+    9.1.1 Configuramos o ESLint
+      yarn eslint --init
+
+      - Seleciona: To check syntax, find problems, and enforce code style
+      - Seleciona: javascript modules (import/export)
+      - Seleciona o framework: no caso não to usando nenhum no momento
+      - Seleciona ambiente de execução: node
+      - Seleciona style guide: Use a popular style guide -> Airbnb
+      - Seleciona formato do arquivo config: Javascript
+      - seleciona se quer instalar agora: Y
+
+    9.1.2 Configura o linter para 'consertar' o código automaticamente
+    quando salvar o arquivo, adicionando a linha abaixo no arquivo de configuração do
+    vscode (nas preferências).
+
+    9.1.3 Configura o .eslintrc.js para sobrescrever algumas regras do airbnb:
+        rules: {
+          "class-methods-use-this": "off",
+          "no-param-reassign": "off",
+          camelcase: "off",
+          "no-unused-vars": ["error", { argsIgnorePattern: "next" }]
+        }
+
+  9.2 Instalar o Prettier:
+    yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+    9.2.1 Adiciono o prettier nos 'extends' e como 'plugins' e como uma
+    nova regra no .eslintrc.js:
+        extends: ["airbnb-base", "prettier"],
+        plugins: ["prettier"],
+        rules: {
+          "prettier/prettier": "error",
+          "class-methods-use-this": "off",
+          "no-param-reassign": "off",
+          camelcase: "off",
+          "no-unused-vars": ["error", { argsIgnorePattern: "next" }]
+        }
+
+    9.2.2 Crio um arquivo .prettierrc para sobrescrever regras que estão conflitando
+    com as do airbnb:
+        {
+          "singleQuote": true,
+          "trailingComma": "es5"
+        }
+
+  9.3 Pode fazer o eslint ajustar todos os arquivos Javascript do projeto de acorodo com
+  o padrão definido no projeto com o comando abaixo:
+    yarn eslint --fix **diretorio** --ext .js
+
+  9.4 Instala o plugin EditorConfig no vscode (serve pra quando a equipe usa editores
+  de código diferemtes, tipo Atom, sublime, etc), depois de instalar: Vai na raiz do projeto
+  e gera o arquivo .editorconfig
+
+Aula configuração do sequelize
+10. Cria pasta config dentro de src.
+  10.1 Dentro da pasta config, Cria o arquivo de configuração das bases de dados (contém as credencias
+  para acesso à base de dados):
+    database.js
+
+12. Cria pasta database dentro de src:
+  12.1 Dentro da pasta database, crio a pasta migrations e seeds.
+
+14. Dentro da pasta src, crio a pasta app
+  A pasta app conterá a maioria do código que envolve regra de negócio da aplicação.
+ 14.1 Dentro da pasta app, crio a pasta controllers e models.
+
+  Resumo da estrutura do projeto:
+  src/
+    app.js
+    routes.js
+    server.js
+    app/
+      controllers
+      models
+    config/
+      database.js
+    database/
+      migrations/
+      seeds/
+
+15. Instalo o sequelize
+  yarn add sequelize
+
+16. Instalo o sequelize-cli como dependencia de desenvolvimento:
+  yarn add sequelize-cli -D
+
+17. Crio o arquivo .sequelizerc (exporta o caminho e pastas criados anteriormente)
+  O 'resolve' importado serve para padronizar o path (tanto em OSX, Windows, Linux)
+  O arquivo fica da seguinte forma:
+
+    const { resolve } = require('path');
+    module.exports = {
+      config: resolve(__dirname, 'src', 'config', 'database.js'),
+      'models-path': resolve(__dirname, 'src', 'app', 'models'),
+      'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
+      'seeds-path': resolve(__dirname, 'src', 'database', 'seeds'),
+    };
+
+16. Instalamos as dependencias para usar o PostgreSQL (pode ser necessário uma versão especifica):
+  yarn add pg pg-hstore
+
+17. Editamos arquivo src/config/database.js:
+  module.exports = {
+    dialect: 'postgres',
+    host: 'localhost',
+    username: 'postgres',
+    password: 'gobarberdev'
+    database: 'gobarber',
+    define: {
+      timestamps: true, //serve pra colocar as timestamps: createdAt e updatedAt
+      underscored: true, // Serve para o sequelize criar os models(tabelas) com padrão snake case
+      underscoredAll: true, // Serve para o sequelize criar as colunas e relacionamentos com padrão snake case
+    },
+  };
+
+  *-* Assim finalizou a configuração do sequelize ;) *-*
+
+Aula criando Migration de usuário
+18. Vamos criar a nossa primeira migration
+que criará a tabela de usuários:
+  yarn sequelize migration:create --name=create-users
+
+  18.1 Após finalizar a migration, podemos executá-la:
+    yarn sequelize db:migrate
+  Como resultado teremos a tabela 'users' criada na base de dados.
+    PS: Para desfazer uma migration:
+      yarn sequelize db:migration:undo (desfaz a ultima migration)
+        ou
+      db:migration:undo:all (desfaz todas migrations)
+
+Aula Criando Model de usuario
+19. O model vai ser utilizado para manipular os dados do usuário (um CRUD):
+  19.1 Criar arquivo User.js na pasta models;
+
+Aula Criando loader de models
+20. Criar o loader index.js na pasta database.
+
+  20.1 Importamos o loader no app.js
+  Podemos testá-lo na rota
+
+Aula (implementando a feature) Criação e registro de usuários:
+21. Criamos o controller UserController.js
+  21.1 Importamos o model de usuário
+
+  21.2 Associamos a rota ao controller
+
+Aula - Gerando hash de senha
+22. Para gerar o hash da senha vamos utilizar o módulo bcryptjs:
+  yarn add bcryptjs
+
+  22.1 Importamos o bcryptjs no model de usuario
+
+  22.2 Criamos um campo password no model do tipo VIRTUAL (um campo que nunca existe
+  do lado da base de dados, existindo apenas no código da aplicação)
+
+  22.3 Adicionamos um Hook no sequelize (Hooks são trechos de código que são executados de forma
+  automática baseado em ações que ocorrem no model)
+
+Aula - Conceitos de JWT
+
+Aula - Autenticação JWT
+23. Vamos criar a autenticação do usuário (nova feature)
+  23.1 Criamos um controller para sessões, chamado SessionController.js
+  (Se estivessemos modelando via UML seria a entidade Sessão)
+
+  23.2 Importamos nosso model de usuario no SessionController
+
+  23.3 Instalamos o modulo jsonwebtoken, responsável por gerar o token JWT:
+    yarn add jsonwebtoken
+
+  23.4 Verifico se o usuario e senha são validos para criar a seção (a validação da senha
+  foi implementada como um método no model de usuario), depois gero a resposta à requisição do usuário
+  contendo informações do usuário e o token JWT
+
+  23.5 Após isto, defino a rota que vai acessar o SessionController
+
+  23.6 Após criar a rota, testo a rota com o Insomnia
+
+  23.7 Separo as configurações de md5 e data de expiração do token
+  num arquivo auth.js na pasta config
+
+Aula - Middleware de autenticação (nova feature:  Bloqueio acesso de usuário
+caso ele tente acessar alguma rota sem estar logado)
+24. Criamos uma pasta middlewares no diretorio app
+25. Dentro da pasta middlewares, criamos um middleware de autenticação auth.js
+    Lembrar que o token está no header da requisição. Pode ser inserido de dois jeitos:
+    1- No header com cabeçalho 'Authorization' e valor 'Bearer codigo_token'
+    ou
+    2- na aba Auth, seleciona tipo Bearer token e colocar o token desejado.
+
+26. Primeiramente, o nosso middleware busca o token gerado
+27. Importamos o jsonwebtoken e o arquivo de authConfig para desencriptar o token recebido.
+    Usaremos o metodo jwt.verify para decriptar e verificar se o token é válido.
+    Além disso, usamos o promisify para usar o metodo async do jwt.verify
+28. Se o usuario estiver autenticado, incluimos o ID dele na requisição,
+  assim o metodo update co controller pode ter acesso ao ID do usuário.
+
+Aula - Update de usuário (feat: Edição do cadastro dum usuário)
+
+Aula - Validação de dados de entrada (feat)
+29. Utilizaremos a biblioteca 'yup' para validar os campos do corpo da requisição.
+  Instalamos a biblioteca:
+    yarn add yup
+
+  29.1 Começamos validando a requisição da criação de usuário.
+  29.2 Depois aplicamos a validação à requisição de edição do usuário
+  29.3 Também pode aplicar a validação na sessão do usuário
+
+
+---------------------------------------------------------------------
+Modulo 03
+
+Aula - Configurando multer (feature de upload de arquivos)
+
+1. multipart/form-data é o formato que suporta o envio de arquivos numa requisição
+  O Multer é uma das bibliotecas que lida com esse tipo de corpo na requisição:
+  yarn add multer
+
+  1.1 Criamos uma pasta temp e temp/uploads onde ficarão todos os uploads que forem feitos
+  para a aplicação.
+
+  1.2 Dentro de src/config criamos o arquivo multer.js onde ficará a configuração de upload de arquivos
+  Adicionamos um codigo unico pra cada imagem e contatenamos com a extensao do arquivo enviado pelo usuário
+
+  1.3 Criamos o middleware de upload (const upload = multer(multerConfig))
+
+  1.4 Criamos a rota '/files' tipo POST para upload de arquivos, adicionamos o middleware
+  upload.single('file') para tratar o upload de apenas 01 arquivo por vez
+  ('files' é o nome do campo do arquivo na requisição);
+
+Aula - Avatar do usuário
+
+As informações retornadas pelo multer que importam são o antigo nome e o novo nome do aquivo
+2.1 Criamos um controller para tratar dos arquivos recebidos: FileController.js
+
+2.2 Criamos uma tabela para o FileController salvar a referencia das imagens no banco de dados
+por meio de uma migration do sequelize (tabela files):
+  yarn sequelize migration:create --name=create-files
+
+  Após editar a migration, executamos-la:
+  yarn sequelize db:migrate
+
+2.3 Criamos o Model: File.js
+
+2.4 Importamos o model File no Loader de models em database/index.js
+
+2.5 Após isto, podemos importar nosso model File no FileController e implementamos o
+código para persistir a referencia no bd e retornamos a referencia ao cliente, testamos
+o resultado com insomnia
+
+2.6 Resta fazer o relacionamento das tabelas de users e files para que o usuário
+possa ser associado ao seu respectivo avatar. Precisamos adicionar um campo novo
+na tabela de usuários, para isso criamos uma nova migration:
+  yarn sequelize migration:create --name=add-avatar-field-to-users
+
+  Após impletermanos a migration, podemos executá-la:
+    yarn sequelize db:migrate
+
+2.7 Criamos o relacionamento no model de User com o model de File,
+entre os campos avatar_id (User) e id (File), usando o metodo associate no model User.
+Após isto, chamamos o método no Loader de models.
+
+-----------------------
+Aula - Listagem de prestadores de serviços
+
+3.1 Criação da rota('/providers') para listar prestadores de serviços e
+criamos um controller ProviderController.js para lidar especificamente com
+prestadores de serviços (lembrando que um provider também é um User, mas por ser especifico
+para provider (funcionalidades, caracteristicas próprias, etc) é interessante criar
+uma entidade para provider). O ProviderController também manipula o model User.
+
+3.2 Configuramos o express para servir arquivos estáticos via um middleware no App.js
