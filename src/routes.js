@@ -9,6 +9,7 @@ import UserController from './app/controllers/UserController';
 import ProviderController from './app/controllers/ProviderController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
+import AppointmentController from './app/controllers/AppointmentController';
 
 // Importação dos middlewares
 // authMiddleware sendo utilizado como middleware local
@@ -36,6 +37,9 @@ routes.put('/users', UserController.update);
 
 // Rota para listar os providers da aplicação
 routes.get('/providers', ProviderController.index);
+
+// Rota para um usuario agendar um serviço com um provider
+routes.post('/appointments', AppointmentController.store);
 
 // Rota de upload de arquivos (imagem de avatar do usuario)
 routes.post('/files', upload.single('file'), FileController.store);
