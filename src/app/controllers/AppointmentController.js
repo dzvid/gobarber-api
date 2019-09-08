@@ -10,12 +10,20 @@ class AppointmentController {
    * O método index: Permite a listagem de agendamentos de um usuário
    */
   async index(req, res) {
+    // TODO - Verificar se o valor de page é valido (page>=1)
+
+    // Paginacao de agendamentos, se não for informado será retornado o padrão a pagina 1
+    // São retornados no máximo 20 registros por vez
+    const { page = 1 } = req.query;
+
     // Consulto todos os agendamentos do usuário que ainda não foram cancelados
     // Retornando os agendamentos existentes ordenados por data e inclue as informações dos
     // prestadores de serviços (dados do provider e o  avatar do provider)
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       attributes: ['id', 'date'],
+      limit: 20,
+      offset: (page - 1) * 20,
       order: ['date'],
       include: [
         {

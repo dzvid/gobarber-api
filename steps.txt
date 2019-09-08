@@ -401,3 +401,11 @@ Aula - Listando agendamentos do usuário (feature)
 
 7.1 Criamos a rota get.('appointments') e implementamos o método index no AppointmentController
 para listar os usuários.
+
+-----------------------
+
+Aula - Aplicando paginação (chore)
+
+8.1 Configuramos o parametros de query para paginação no insomnia
+
+8.2
