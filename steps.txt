@@ -369,3 +369,13 @@ cada prestador de servico. Iniciamos criando a migration de agendamentos (appoin
   4.2.2 Implementamos o relacionamento por meio do metodo associate.
 
   4.2.3 Adicionamos o model de Agendamento no Loader de models.
+
+-----------------------
+
+Aula - Agendamento de serviço (feature)
+
+5.1 Iniciamos criando um controller AppointmentController e a rota para um usuario
+poder agendar um serviço com um prestador de serviço. Para criar um agendamento é necessário
+o provider_id e a data do agendamento (enviar via insmonia)
+
+5.2 Criamos o schema de validação
