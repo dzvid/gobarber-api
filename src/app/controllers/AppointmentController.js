@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { startOfHour, parseISO, isBefore } from 'date-fns';
 
 import User from '../models/User';
 import Appointment from '../models/Appointment';
@@ -35,9 +36,32 @@ class AppointmentController {
         .json({ error: 'You can only create appointments with providers' });
     }
 
-    // TODO - Verificar se já há um agendamento no horario desejado com o provider escolhido
+    // Configura o horario recebido para ficar apenas com a hora, zerando minutos e segundos
+    const hourStart = startOfHour(parseISO(date));
 
-    // Se o provider_id for válido, podemos criar um agendamento
+    // Verificar se a data de agendamento é uma data no passado (se verdadeiro é inválida)
+    // comparando a data de agendamento com a data atual
+    if (isBefore(hourStart, new Date())) {
+      return res.status(400).json({ error: 'Past dates are note permitted' });
+    }
+
+    // Verificar se o prestador de serviço está com o horario indicado disponivel para agendamento
+    const checkAvailability = await Appointment.findOne({
+      where: {
+        provider_id,
+        canceled_at: null,
+        date: hourStart,
+      },
+    });
+
+    // Se encontrar um registro no horario informado, retorna mensagem informando indisponibilidade no horario requisitado
+    if (checkAvailability) {
+      return res
+        .status(400)
+        .json({ error: 'Appointment date is not available' });
+    }
+
+    // Se o provider_id for válido e o horário dele está disponivel, então podemos criar um agendamento
     const newAppointment = await Appointment.create({
       user_id: req.userId,
       provider_id,

@@ -379,3 +379,20 @@ poder agendar um serviço com um prestador de serviço. Para criar um agendament
 o provider_id e a data do agendamento (enviar via insmonia)
 
 5.2 Criamos o schema de validação
+
+5.3 Implementamos o método de agendamento (AppointmentController.store)
+
+-----------------------
+
+Aula - Validações de agendamento
+
+6.1 Duas validações adicionais na criação de um agendamento:
+  6.1.1 [X] Verificar se a data de agendamento é válida, ou seja, se é uma data futura,
+  além disso o agendamento é feito por hora (por exemplo: 08:00 é válido, 8:30 é inválido).
+  6.1.2 [] Verificar se a data de agendamento já está sendo utilizada pelo prestador de serviço.
+
+  Para isso precisamos utilizar uma biblioteca para lidar com datas dentro do node,
+  utilizaremos a date-fns (o @next é equivalente ao beta da biblioteca):
+    yarn add date-fns@next
+
+6.2
