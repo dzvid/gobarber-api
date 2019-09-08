@@ -389,10 +389,15 @@ Aula - Validações de agendamento
 6.1 Duas validações adicionais na criação de um agendamento:
   6.1.1 [X] Verificar se a data de agendamento é válida, ou seja, se é uma data futura,
   além disso o agendamento é feito por hora (por exemplo: 08:00 é válido, 8:30 é inválido).
-  6.1.2 [] Verificar se a data de agendamento já está sendo utilizada pelo prestador de serviço.
+  6.1.2 [X] Verificar se a data de agendamento já está sendo utilizada pelo prestador de serviço.
 
   Para isso precisamos utilizar uma biblioteca para lidar com datas dentro do node,
   utilizaremos a date-fns (o @next é equivalente ao beta da biblioteca):
     yarn add date-fns@next
 
-6.2
+-----------------------
+
+Aula - Listando agendamentos do usuário (feature)
+
+7.1 Criamos a rota get.('appointments') e implementamos o método index no AppointmentController
+para listar os usuários.

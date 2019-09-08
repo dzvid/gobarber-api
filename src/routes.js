@@ -38,6 +38,9 @@ routes.put('/users', UserController.update);
 // Rota para listar os providers da aplicação
 routes.get('/providers', ProviderController.index);
 
+// Rota para listagem de agendamentos de um usuário
+routes.get('/appointments', AppointmentController.index);
+
 // Rota para um usuario agendar um serviço com um provider
 routes.post('/appointments', AppointmentController.store);
 
