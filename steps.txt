@@ -411,6 +411,7 @@ Aula - Aplicando paginação de agendamentos do usuário (chore)
 -----------------------
 
 Aula - Listando agendamentos do prestador de serviços (feature)
+
 Cenario: Quando o prestador de serviços acessa o serviço, o sistema deve apresentar um painel
         com todos os agendamentos para o dia (diferente do usuário que é paginado).
 
@@ -422,5 +423,18 @@ e criamos a consulta no insomnia.
   provedor de serviços deseja consultar a lista de agendamentos ecistentes, o valor
   default para o date é o dia atual.
 
+-----------------------
 
+Aula - Configurando mongoDB
 
+10.1 Utilizaremos o banco de dados não relacional MongoDB e o ODM Mongoose para
+manipular as informações armazenadas no mongo.
+  - Instalamos a imagem docker do mongo:
+    docker run --name mongo_gobarber -p 27017:27017 -d -t mongo
+
+  - Instalamos o mongoose:
+    yarn add mongoose
+
+10.2 A configuração do mongoose também ficará no arquivo database/index.js
+
+10.3

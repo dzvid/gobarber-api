@@ -1,5 +1,7 @@
 // Resumo do arquivo: é o Loader dos models, Conecta com a base de dados e carrega os models da aplicação
 import Sequelize from 'sequelize';
+import mongoose from 'mongoose';
+
 // Importamos nossos models
 import User from '../app/models/User';
 import File from '../app/models/File';
@@ -14,6 +16,7 @@ const models = [User, File, Appointment];
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   // Conecta com a base de dados e carrega os models da aplicação
@@ -25,6 +28,14 @@ class Database {
     models
       .map(model => model.init(this.connection))
       .map(model => model.associate && model.associate(this.connection.models)); // Carrega os relacionamentos entre tabelas que possuem o método associate
+  }
+
+  // configuração MongoDB
+  mongo() {
+    this.mongoConnection = mongoose.connect(
+      'mongodb://localhost:27017/gobarber',
+      { useNewUrlParser: true, useFindAndModify: true }
+    );
   }
 }
 
