@@ -10,6 +10,7 @@ import ProviderController from './app/controllers/ProviderController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import AppointmentController from './app/controllers/AppointmentController';
+import ScheduleController from './app/controllers/ScheduleController';
 
 // Importação dos middlewares
 // authMiddleware sendo utilizado como middleware local
@@ -43,6 +44,9 @@ routes.get('/appointments', AppointmentController.index);
 
 // Rota para um usuario agendar um serviço com um provider
 routes.post('/appointments', AppointmentController.store);
+
+// Rota para listagem de agendamentos de um provedor de serviços
+routes.get('/schedule', ScheduleController.index);
 
 // Rota de upload de arquivos (imagem de avatar do usuario)
 routes.post('/files', upload.single('file'), FileController.store);

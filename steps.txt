@@ -404,8 +404,23 @@ para listar os usuários.
 
 -----------------------
 
-Aula - Aplicando paginação (chore)
+Aula - Aplicando paginação de agendamentos do usuário (chore)
 
 8.1 Configuramos o parametros de query para paginação no insomnia
 
-8.2
+-----------------------
+
+Aula - Listando agendamentos do prestador de serviços (feature)
+Cenario: Quando o prestador de serviços acessa o serviço, o sistema deve apresentar um painel
+        com todos os agendamentos para o dia (diferente do usuário que é paginado).
+
+9.1 O ScheduleController é responsável por tratar as requisições de agendamento do
+provedor de serviços, criamos a rota associada ao metodo ScheduleController.index
+e criamos a consulta no insomnia.
+  - É preciso verificar se o usuário logado é um prestador de serviço.
+  - O query param enviado será o parametro 'date' que corresponde ao dia em que o
+  provedor de serviços deseja consultar a lista de agendamentos ecistentes, o valor
+  default para o date é o dia atual.
+
+
+
