@@ -463,4 +463,6 @@ chore: Criar rota para listar notificações do prestador de serviço.
       - A rota (funcionalidade) só deve ser acessada por prestadores de serviços.
       - As notificações devem ser ordenadas da mais recente para a mais antiga.
 
-12.1
+-----------------------
+
+Aula - Listando notificações do usuário (prestador de serviço)

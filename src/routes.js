@@ -52,6 +52,9 @@ routes.get('/schedule', ScheduleController.index);
 // Rota para listar as notificações de um usuário (prestador de serviço)
 routes.get('/notifications', NotificationController.index);
 
+// Rota para marcar notificação como lida
+routes.put('/notifications/:id', NotificationController.update);
+
 // Rota de upload de arquivos (imagem de avatar do usuario)
 routes.post('/files', upload.single('file'), FileController.store);
 
