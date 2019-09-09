@@ -455,4 +455,12 @@ PS: Com o mongo não precisamos criar migrations, nem importar/inicializar o mod
 no loader de models como fazemos com o banco relacional. Podemos importa o schema
 diretamente no local desejado e utilizá-lo.
 
-11.2
+-----------------------
+
+Aula - Listando notificações do usuário (prestador de serviço)
+
+chore: Criar rota para listar notificações do prestador de serviço.
+      - A rota (funcionalidade) só deve ser acessada por prestadores de serviços.
+      - As notificações devem ser ordenadas da mais recente para a mais antiga.
+
+12.1
