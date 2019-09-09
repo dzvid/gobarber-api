@@ -1,9 +1,12 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+// Precisa definir o locale do datefns para portugues
+import pt from 'date-fns/locale/pt';
 
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   /**
@@ -47,7 +50,16 @@ class AppointmentController {
   /**
    *  O método store: Permite um usuário agendar um serviço com um provider (ou seja,
    * permite criar um agendamento). Para criar um agendamento é necessário o user_id,
-   * o provider_id e a data do agendamento.
+   * o provider_id e a data do agendamento. Se o agendamento for criado com sucesso, o
+   * provider deve ser notificado.
+   * Um usuario só pode criar um agendamento com um provider. Lembrando que um provider
+   * também é um usuário. Um usuario/provider não pode criar um agendamento consigo mesmo.
+   * A tabela abaixo é uma ajuda:
+   * Usuario | criar agendamento com
+   * user       -> user     | Não pode
+   * user       -> provider | ok
+   * provider   -> provider | ok (Se for o mesmo provider, então não pode)
+   * provider   -> user     | Não pode
    */
   async store(req, res) {
     // Criamos o schema do Yup para validação da requisição
@@ -66,6 +78,13 @@ class AppointmentController {
     // Extraimos as informações para criar o agendamento
     const { provider_id, date } = req.body;
 
+    // Verifica se o usuario não está tentando criar um appointment consigo mesmo
+    if (provider_id === req.userId) {
+      return res
+        .status(401)
+        .json({ error: 'User can not create an appointment with himself' });
+    }
+
     // Verificamos se o provider_id fornecido corresponde a um provider
     const isProvider = await User.findOne({
       where: { id: provider_id, provider: true },
@@ -75,7 +94,7 @@ class AppointmentController {
     if (!isProvider) {
       return res
         .status(401)
-        .json({ error: 'You can only create appointments with providers' });
+        .json({ error: 'User can only create appointments with providers' });
     }
 
     // Configura o horario recebido para ficar apenas com a hora, zerando minutos e segundos
@@ -117,6 +136,26 @@ class AppointmentController {
       user_id: req.userId,
       provider_id,
       date,
+    });
+
+    /*
+     * Notifica novo agendamento ao prestador de serviço
+     */
+
+    // Buscamos as informacoes do usuario
+    const user = await User.findByPk(req.userId);
+
+    // Formatamos a data de agendamento para exibição, e.g: dia 23 de Junho, às 8:40h
+    const formattedDate = format(
+      hourStart,
+      "'dia' dd 'de' MMMM', às' H:mm'h'",
+      { locale: pt }
+    );
+
+    // Geramos a notificacao
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para o ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.json(newAppointment);

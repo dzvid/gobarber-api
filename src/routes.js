@@ -11,6 +11,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
+import NotificationController from './app/controllers/NotificationController';
 
 // Importação dos middlewares
 // authMiddleware sendo utilizado como middleware local
@@ -47,6 +48,12 @@ routes.post('/appointments', AppointmentController.store);
 
 // Rota para listagem de agendamentos de um provedor de serviços
 routes.get('/schedule', ScheduleController.index);
+
+// Rota para listar as notificações de um usuário (prestador de serviço)
+routes.get('/notifications', NotificationController.index);
+
+// Rota para marcar notificação como lida
+routes.put('/notifications/:id', NotificationController.update);
 
 // Rota de upload de arquivos (imagem de avatar do usuario)
 routes.post('/files', upload.single('file'), FileController.store);
