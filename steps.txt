@@ -437,4 +437,22 @@ manipular as informações armazenadas no mongo.
 
 10.2 A configuração do mongoose também ficará no arquivo database/index.js
 
-10.3
+-----------------------
+
+Aula - Notificando novos agendamentos (feature)
+
+Cenario: O sistema envia uma notificação para o prestador de serviço toda vez que
+        ele receber um novo agendamento. As notificações serão armazenadas dentro
+        do MongoDB (Por quê usar o mongo pra isso? Por que os dados armazenados
+        possuem poucos relacionamentos, precisa apenas saber as informações do
+        usuario e do prestador de serviço, salvando o estado atual das suas
+        informações e não suas referências (parecido com o que o discord faz)).
+        A notificação é criada após um usuário realizar um agendamento com um prestador
+        de serviços (no AppointmentController).
+
+11.1 Criamos o schema de agendamentos.
+PS: Com o mongo não precisamos criar migrations, nem importar/inicializar o model
+no loader de models como fazemos com o banco relacional. Podemos importa o schema
+diretamente no local desejado e utilizá-lo.
+
+11.2

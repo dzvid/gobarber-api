@@ -1,9 +1,12 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+// Precisa definir o locale do datefns para portugues
+import pt from 'date-fns/locale/pt';
 
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   /**
@@ -47,7 +50,8 @@ class AppointmentController {
   /**
    *  O método store: Permite um usuário agendar um serviço com um provider (ou seja,
    * permite criar um agendamento). Para criar um agendamento é necessário o user_id,
-   * o provider_id e a data do agendamento.
+   * o provider_id e a data do agendamento. Se o agendamento for criado com sucesso, o
+   * provider deve ser notificado.
    */
   async store(req, res) {
     // Criamos o schema do Yup para validação da requisição
@@ -117,6 +121,26 @@ class AppointmentController {
       user_id: req.userId,
       provider_id,
       date,
+    });
+
+    /*
+     * Notifica novo agendamento ao prestador de serviço
+     */
+
+    // Buscamos as informacoes do usuario
+    const user = await User.findByPk(req.userId);
+
+    // Formatamos a data de agendamento para exibição, e.g: dia 23 de Junho, às 8:40h
+    const formattedDate = format(
+      hourStart,
+      "'dia' dd 'de' MMMM', às' H:mm'h'",
+      { locale: pt }
+    );
+
+    // Geramos a notificacao
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para o ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.json(newAppointment);
