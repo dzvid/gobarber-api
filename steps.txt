@@ -535,6 +535,7 @@ dois modulos:
 -----------------------
 
 Aula - Configurando filas/background jobs com redis
+
 Cenario: O cliente cancela um agendamento. O sistema deve enviar um email ao prestador
 de serviço informando sobre o cancelamento e então retornar uma resposta ao cliente
 informando sucesso no cancelamento.
@@ -568,3 +569,8 @@ do Redis no loader de jobs, e repassamos a configuracao do Redis ao Bee queue.
 e adicionamos o script "queue": "nodemon src/queue.js" no package.json para que o
 sucrase interprete a sintaxe ES5+
 
+-----------------------
+
+Aula - Monitorando falhas na fila
+
+16.1 Podemos utilizar o método 'on' para ouvir os erros que ocorrerem na classe Queue.
