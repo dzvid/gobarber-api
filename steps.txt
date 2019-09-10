@@ -529,4 +529,6 @@ chore: configurando templates de e-mail
 dois modulos:
   yarn add express-handlebars nodemailer-express-handlebars
 
-14.2
+  Sobre a pasta de view/emails:
+  - Os partials são arquivos que pode implementar e incluir dentro de emails (tipo um componente);
+
