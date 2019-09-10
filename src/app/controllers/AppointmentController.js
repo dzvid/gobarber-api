@@ -8,8 +8,9 @@ import File from '../models/File';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 
-// Envio de emails
-import Mail from '../../lib/Mail';
+// Gerenciamento da fila do serviço de envio de email
+import CancellationMail from '../jobs/CancellationMail';
+import Queue from '../../lib/Queue';
 
 class AppointmentController {
   /**
@@ -217,26 +218,8 @@ class AppointmentController {
 
     await appointment.save();
 
-    // TODO - Tratar erro quando nodemail não pode se conectar ao serviço de email
-    // Imediatamente após efetivar o cancelamento, envio email ao prestador de serviço
-    // informando sobre o cancelamento
-    // Formatamos a data de agendamento para exibição, e.g: dia 23 de Junho, às 8:40h
-    const formattedCancelledDate = format(
-      appointment.date,
-      "'dia' dd 'de' MMMM', às' H:mm'h'",
-      { locale: pt }
-    );
-
-    await Mail.sendMail({
-      to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Agendamento cancelado',
-      template: 'cancellation',
-      context: {
-        provider: appointment.provider.name,
-        user: appointment.user.name,
-        date: formattedCancelledDate,
-      },
-    });
+    // Envio email de cancelamento ao provedor de serviços
+    await Queue.add(CancellationMail.key, { appointment });
 
     return res.json(appointment);
   }

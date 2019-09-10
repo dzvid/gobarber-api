@@ -532,3 +532,39 @@ dois modulos:
   Sobre a pasta de view/emails:
   - Os partials são arquivos que pode implementar e incluir dentro de emails (tipo um componente);
 
+-----------------------
+
+Aula - Configurando filas/background jobs com redis
+Cenario: O cliente cancela um agendamento. O sistema deve enviar um email ao prestador
+de serviço informando sobre o cancelamento e então retornar uma resposta ao cliente
+informando sucesso no cancelamento.
+  O problema é que o envio de email leva um tempo alto e o usuário aguardaria a
+resposta do cancelamento durante esse periodo. Podemos utilizar filas para gerenciar
+o serviço de envio de email em background.
+  - Cada serviço que executa trabalhos em brackground tem sua própria fila.
+
+chore: Configurando filas com redis
+
+15.1 Instalamos a imagem docker do redis:
+  docker run --name redis_gobarber -p 6379:6379 -d -t redis:alpine
+
+15.2 Instalamos o Bee queue o qual é um gerenciador de filas/tarefas para o NodeJS
+usando o Redis:
+  yarn add bee-queue
+
+15.3 Criamos um arquivo lib/Queue.js e criamos uma pasta app/jobs para armazenar
+todos os trabalhos que executam em segundo plano na aplicação. O Queue é como se
+fosse um job loader (semelhante ao model loader).
+
+15.4 Dentro de app/jobs, criamos nosso primeiro job: CancellationMail.js
+Cada job precisa de uma chave única.
+
+15.6 Criamos a configuração do redis em config/redis.js, importamos a configuração
+do Redis no loader de jobs, e repassamos a configuracao do Redis ao Bee queue.
+
+15.7 no AppointmentController substituimos a importação do modulo Mail pelo de Queue
+
+15.8 Criamos um arquivo src/queue.js responsável por inicializar o gerenciador de filas
+e adicionamos o script "queue": "nodemon src/queue.js" no package.json para que o
+sucrase interprete a sintaxe ES5+
+
