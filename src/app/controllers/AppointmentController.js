@@ -8,6 +8,9 @@ import File from '../models/File';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 
+// Envio de emails
+import Mail from '../../lib/Mail';
+
 class AppointmentController {
   /**
    * O método index: Permite a listagem de agendamentos de um usuário
@@ -163,11 +166,21 @@ class AppointmentController {
 
   async delete(req, res) {
     // TODO - Validar a existencia do id recebido
-    const appointment = await Appointment.findByPk(req.params.id);
+    // Buscamos o agendamento e também as informações sobre o respectivo prestador de serviços
+    // para envio de email avisando sobre cancelamento
+    const appointment = await Appointment.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'provider',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
 
     console.log(appointment);
 
-    // TODO - Verificar se um provedor pode cancelar um agendamento
+    // TODO - Verificar se um prestador de serviços pode cancelar um agendamento
     // Verificamos se o agendamento pertence ao usuario logado
     if (appointment.user_id !== req.userId) {
       return res.status(401).json({
@@ -198,6 +211,15 @@ class AppointmentController {
     appointment.canceled_at = new Date();
 
     await appointment.save();
+
+    // TODO - Tratar erro quando nodemail não pode se conectar ao serviço de email
+    // Imediatamente após efetivar o cancelamento, envio email ao prestador de serviço
+    // informando sobre o cancelamento
+    await Mail.sendMail({
+      to: `${appointment.provider.name} <${appointment.provider.email}>`,
+      subject: 'Agendamento cancelado',
+      text: 'Você tem um novo cancelamento.',
+    });
 
     return res.json(appointment);
   }
