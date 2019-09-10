@@ -496,4 +496,25 @@ Question: - Na listagem de notificações, uma notificação cancelada deve ser 
 12.1 Foi criado a rota delete('appointments') para o usuário realizar o cancelamento do
 agendado.
 
-12.2
+-----------------------
+
+Aula - Configurando nodemailer
+
+Cenario: O usuario cancelou um atendimento, o sistema deve notificar o prestador
+        de serviço via email.
+
+13.1 Para enviar emails utilizaremos o Nodemailer (módulo para envio de email com NodeJS),
+que pode ser instalado usando o yarn:
+  yarn add nodemailer
+
+  - Existem vários serviços de email, como Gmail, Amazon SES, Mailgun, Sparkpost, Mandril (Mailchimp), etc
+  aqui utilizaremos o Mailtrap que funciona apenas em ambiente de desenvolvimento!
+
+13.2 Criamos um arquivo de configuracao: config/mail.js e incluimos a configuração do mailtrap
+
+13.3 Criou uma pasta src/lib que contém configurações de serviços externos da aplicação, como
+o envio de emails. Crio a classe Mail e importo a configuração de email criada em config/mail.js
+Algumas estrategias de envio de email não precisam de autenticação por isso o teste de nulo na classe.
+
+13.4 Após configurar a classe de envio de email, podemos importá-lo no AppointmentController
+onde será utilizado no método delete o qual é responsavel por realizar o cancelamento de agendamentos.
