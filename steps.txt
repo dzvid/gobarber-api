@@ -518,3 +518,15 @@ Algumas estrategias de envio de email não precisam de autenticação por isso o
 
 13.4 Após configurar a classe de envio de email, podemos importá-lo no AppointmentController
 onde será utilizado no método delete o qual é responsavel por realizar o cancelamento de agendamentos.
+
+-----------------------
+
+Aula - Configurando templates de e-mail
+
+chore: configurando templates de e-mail
+
+14.1 Configuraremos templates engines pra email, utilizaremos o handlebars e instalamos
+dois modulos:
+  yarn add express-handlebars nodemailer-express-handlebars
+
+14.2
