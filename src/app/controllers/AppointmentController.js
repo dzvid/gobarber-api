@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 // Precisa definir o locale do datefns para portugues
 import pt from 'date-fns/locale/pt';
 
@@ -159,6 +159,47 @@ class AppointmentController {
     });
 
     return res.json(newAppointment);
+  }
+
+  async delete(req, res) {
+    // TODO - Validar a existencia do id recebido
+    const appointment = await Appointment.findByPk(req.params.id);
+
+    console.log(appointment);
+
+    // TODO - Verificar se um provedor pode cancelar um agendamento
+    // Verificamos se o agendamento pertence ao usuario logado
+    if (appointment.user_id !== req.userId) {
+      return res.status(401).json({
+        error: 'You dont have permission to cancel this appointment',
+      });
+    }
+
+    // Verificamos se o cancelamento está sendo executado até 02 horas antes do
+    // horário marcado para o agendamento.
+    // Removo duas horas do horário marcado e comparo com o horário atual,
+    // assim verifico se está no intervalo de cancelamento.
+    // Ex: Hora do agendamento.: 13:00h
+    //    dateWithSub: 11:00h (hora limite para cancelar uma consulta)
+    //    Date: 11:25h (hora atual)
+    //    Nesse caso o dateWithSub é antes do Date, assim já passou do horário
+    // em que o cancelamento é permitido.
+    const dateWithSub = subHours(appointment.date, 2);
+
+    if (isBefore(dateWithSub, new Date())) {
+      return res
+        .status(401)
+        .json({ error: 'You can only cancel appointments 2 hours in advance' });
+    }
+
+    // Caso o usuario esteja autorizado e  esteja dentro do intervalo de tempo,
+    // realizo o cancelamento (registro a data em que o agendamento foi cancelado).
+    // e retorno o agendamento cancelado.
+    appointment.canceled_at = new Date();
+
+    await appointment.save();
+
+    return res.json(appointment);
   }
 }
 

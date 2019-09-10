@@ -465,4 +465,35 @@ chore: Criar rota para listar notificações do prestador de serviço.
 
 -----------------------
 
-Aula - Listando notificações do usuário (prestador de serviço)
+Aula - Marcar notificações como lida (prestador de serviço)
+
+chore: Marcar uma notificação como lida
+
+Cenário: O provedor de serviços acessou o sistema, verificou as notificações e
+        clicou no botão de marcar notificação como lida.
+        - O sistema deve verificar se o usuário é um provedor de serviço
+
+-----------------------
+
+Aula - Cancelamento de agendamento
+
+chore: Cancelamento de agendamento
+
+Cenario: O usuário deseja cancelar um agendamento (o provedor de serviços não
+pode cancelar um agendamento de um usuario).
+  [X] O usuário só pode cancelar o agendamento até 02 horas antes do horário marcado.
+  [X] O id do agendamento a ser cancelado é enviado como route params.
+  [X] O sistema deve verificar se o agendamento pertence ao usuário logado.
+  Caso não pretença, O sistema deve retornar uma mensagem de erro informando
+  que o usuário não tem permissão para cancelar o agendamento.
+  [X] O sistema deve registrar a data em que o agendamento foi cancelado.
+
+Question: - Na listagem de notificações, uma notificação cancelada deve ser exibida?
+          - Um prestador de serviço pode cancelar um atendimento de um usuário?
+          - feature-request: O sistema deve notificar usuário/prestador de serviço
+          quando um agendamento for cancelado?
+
+12.1 Foi criado a rota delete('appointments') para o usuário realizar o cancelamento do
+agendado.
+
+12.2
