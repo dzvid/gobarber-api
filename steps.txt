@@ -622,3 +622,21 @@ por isso é preciso instalar modulo e importá-la no app.js antes da importaçã
 características o recebimento de 04 parametros começando com o erro (err, req, res, next)=>{}
 e instalamos o pacote youch pra fazer um tratamento nas mensagens de execeção para o desenvolvedor:
   yarn add youch
+
+-----------------------
+
+Aula - Variáveis de ambiente
+
+19.1 Variaveis ambiente podem ter seus valores configurados de acordo com o ambiente
+de execução da aplicação (desenvolvimento/produção). A configuração fica no arquivo
+src/.env na pasta raiz da aplicação
+
+19.2 Carregamos a configuração utilizando o módulo dotenv:
+  yarn add dotenv
+
+  Importamos o dotenv/config no app.js, queue.js e no config/database.js, o dotenv
+  carrega as variaveis de ambiente na variavel global process.env que pode ser
+  utilizada para configurar a aplicação.
+
+19.3 Pode criar um arquivo .env.example  que naocontem informacoes sensiveis para
+ficar de template no repositorio.
