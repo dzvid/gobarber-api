@@ -574,3 +574,28 @@ sucrase interprete a sintaxe ES5+
 Aula - Monitorando falhas na fila
 
 16.1 Podemos utilizar o método 'on' para ouvir os erros que ocorrerem na classe Queue.
+O Bee queue possui outros metodos para monitoramento de eventos na fila.
+
+-----------------------
+
+Aula - Listando horarios disponiveis
+
+Cenário: O usuário deseja saber os horarios disponíveis de um prestador de serviços
+        em um determinado dia. O sistema irá listar os horários disponíveis para um
+        determinado prestador de serviços no dia solicitado e retornará esta lista
+        ao cliente.
+        - O frontend enviará o dia desejado (no formato timestamp) e o id do
+          prestador de serviços escolhido;
+        - O backend retornará uma lista com todos os horários disponíveis no dia
+          do prestador de serviços slecionado ao cliente;
+        Atenção:
+          - Validar os inputs;
+          - Verificar se o dia solicitado já passou;
+          - Considerar o intervalo de tempo de atendimento (Ex: 08h às 18h);
+          - Verificar se o prestador de serviços está com o horário livre;
+
+
+17.1 Criamos uma rota get('appointments/:providerId/available) e um controller
+especifico para verificar agendamentos o AvailableController
+
+

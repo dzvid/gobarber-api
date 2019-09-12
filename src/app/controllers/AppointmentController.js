@@ -165,6 +165,12 @@ class AppointmentController {
     return res.json(newAppointment);
   }
 
+  /**
+   * Permite o usuário realizar o cancelamento de um agendamento. O sistema notifica
+   * o prestador de serviço via email sobre o cancelamento.
+   * @param {*} req
+   * @param {*} res
+   */
   async delete(req, res) {
     // TODO - Validar a existencia do id recebido
     // Buscamos o agendamento e também as informações sobre o respectivo usuário e

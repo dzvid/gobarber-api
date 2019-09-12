@@ -12,6 +12,7 @@ import FileController from './app/controllers/FileController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
+import AvailableController from './app/controllers/AvailableController';
 
 // Importação dos middlewares
 // authMiddleware sendo utilizado como middleware local
@@ -39,6 +40,8 @@ routes.put('/users', UserController.update);
 
 // Rota para listar os providers da aplicação
 routes.get('/providers', ProviderController.index);
+
+routes.get('/providers/:providerId/available', AvailableController.index);
 
 // Rota para listagem de agendamentos de um usuário
 routes.get('/appointments', AppointmentController.index);
