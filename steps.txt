@@ -605,3 +605,20 @@ Aula - Campos virtuais no agendamento
 
 Visando facilitar o trabalho no frontend serão incluidos campos virtuais, por
 exemplo, um campo past pra indicar que um agendamento já aconteceu.
+
+-----------------------
+
+Aula - Tratamento de exceções
+
+18.1 Utilizaremos uma ferramenta para tratamento de erros, como o Sentry, Bugsnag, etc.
+Aqui utilizaremos o Sentry(sentry.io, seguir as isntruções no site para configuração).
+  - Criamos uma configuração para o Sentry em config/sentry.js
+
+18.2 O express não consegue repassar (throw) os erros de funções async para o sentry,
+por isso é preciso instalar modulo e importá-la no app.js antes da importação das rotas:
+  yarn add express-async-errors
+
+18.4 Tamém criamos um middleware para tratamentos de exceções, o qual possui como
+características o recebimento de 04 parametros começando com o erro (err, req, res, next)=>{}
+e instalamos o pacote youch pra fazer um tratamento nas mensagens de execeção para o desenvolvedor:
+  yarn add youch
