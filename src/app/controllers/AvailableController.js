@@ -9,7 +9,6 @@ import {
 } from 'date-fns';
 import { Op } from 'sequelize';
 
-import { exists } from 'fs';
 import Appointment from '../models/Appointment';
 
 class AvailableController {

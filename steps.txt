@@ -599,3 +599,9 @@ Cenário: O usuário deseja saber os horarios disponíveis de um prestador de se
 especifico para verificar agendamentos o AvailableController
 
 
+-----------------------
+
+Aula - Campos virtuais no agendamento
+
+Visando facilitar o trabalho no frontend serão incluidos campos virtuais, por
+exemplo, um campo past pra indicar que um agendamento já aconteceu.
