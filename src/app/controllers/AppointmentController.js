@@ -28,7 +28,7 @@ class AppointmentController {
     // prestadores de serviços (dados do provider e o  avatar do provider)
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'past', 'cancelable'],
       limit: 20,
       offset: (page - 1) * 20,
       order: ['date'],
@@ -165,6 +165,12 @@ class AppointmentController {
     return res.json(newAppointment);
   }
 
+  /**
+   * Permite o usuário realizar o cancelamento de um agendamento. O sistema notifica
+   * o prestador de serviço via email sobre o cancelamento.
+   * @param {*} req
+   * @param {*} res
+   */
   async delete(req, res) {
     // TODO - Validar a existencia do id recebido
     // Buscamos o agendamento e também as informações sobre o respectivo usuário e
