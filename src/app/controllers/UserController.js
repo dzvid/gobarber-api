@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 // (implementando a feature) Criação e registro de usuários
 // Importamos o model de usuário
 import User from '../models/User';
+import File from '../models/File';
 
 class UserController {
   // Cadastro de um usuário (é um middleware)
@@ -100,9 +101,20 @@ class UserController {
     // Após verificar e validar os campos de ecistência do usuário e oldPassword
     // Atualizamos as informações do usuário
 
-    const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
 
-    return res.json({ id, name, email, provider });
+    // Busca a foto de perfil do usuario
+    const { id, avatar, name } = await user.findByPk(req.userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attibutes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json({ id, avatar, name, email });
   }
 }
 
