@@ -640,3 +640,14 @@ src/.env na pasta raiz da aplicação
 
 19.3 Pode criar um arquivo .env.example  que naocontem informacoes sensiveis para
 ficar de template no repositorio.
+
+-----------------------
+
+Aula 2 - Gobarber web
+
+Para desenvolver a parte web é necessário realizar alguns ajustes na API:
+
+- Instala a lib cors:
+  ```sh
+  yarn add cors
+  ```
