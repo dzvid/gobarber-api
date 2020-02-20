@@ -94,7 +94,7 @@ class UserController {
 
     // Verifica se a antiga senha foi informada epreencher o campo de senha nova, a senha é trocada
     // (O que está errado, pois a senha só deveria ser trocada se a antiga fosse fornecida)
-    if (!oldPassword && !(await user.checkPassword(oldPassword))) {
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Password does not match!' });
     }
 
