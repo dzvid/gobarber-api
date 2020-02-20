@@ -104,7 +104,7 @@ class UserController {
     await user.update(req.body);
 
     // Busca a foto de perfil do usuario
-    const { id, avatar, name } = await user.findByPk(req.userId, {
+    const { id, avatar, name } = await User.findByPk(req.userId, {
       include: [
         {
           model: File,
