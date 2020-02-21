@@ -14,7 +14,7 @@ class FileController {
       path,
     });
 
-    return res.json({ file });
+    return res.json(file);
   }
 }
 
