@@ -37,8 +37,8 @@
     "sucrase": "^3.10.1"
   },
   "scripts": {
-    "build": "sucrase ./src -d ./dist --transforms imports",
-    "start": "node dist/server.js",
+    "build": "npm install && sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js && node dist/queue.js &",
     "dev": "nodemon src/server.js",
     "queue": "nodemon src/queue.js"
   }
