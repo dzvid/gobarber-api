@@ -1,6 +1,12 @@
 #Anotações de comandos e dicas
 /node_modules
+
+# Images/files uploaded by the user
 /tmp
+
+# Production build of the app
+/dist
+
 # Logs
 logs
 *.log
