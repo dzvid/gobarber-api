@@ -1,6 +1,6 @@
 #Anotações de comandos e dicas
 /node_modules
-
+/tmp
 # Logs
 logs
 *.log
