@@ -190,8 +190,6 @@ class AppointmentController {
       ],
     });
 
-    console.log(appointment);
-
     // TODO - Verificar se um prestador de serviços pode cancelar um agendamento
     // Verificamos se o agendamento pertence ao usuario logado
     if (appointment.user_id !== req.userId) {

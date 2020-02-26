@@ -1,4 +1,5 @@
 // Resumo do arquivo: é o Loader dos models, Conecta com a base de dados e carrega os models da aplicação
+import 'dotenv/config';
 import Sequelize from 'sequelize';
 import mongoose from 'mongoose';
 
@@ -32,9 +33,13 @@ class Database {
 
   // configuração MongoDB
   mongo() {
-    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+    const { MONGO_HOST, MONGO_PORT, MONGO_NAME } = process.env;
+    const mongoURI = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_NAME}`;
+
+    this.mongoConnection = mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useFindAndModify: true,
+      useUnifiedTopology: true,
     });
   }
 }
