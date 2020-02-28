@@ -2,10 +2,12 @@ version: '3'
 
 services:
   gobarber-api:
-    image: thehiddenbuddy/gobarber-api
+    build: .
     container_name: gobarber-api
+    volumes:
+      - .:/home/node/api
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DB_HOST=gobarber-postgres
       - REDIS_HOST=gobarber-redis
       - MONGO_HOST=gobarber-mongo
