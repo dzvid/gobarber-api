@@ -54,6 +54,8 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+    - [Using Docker Compose](#using-docker-compose)
+    - [Creating containers manually](#creating-containers-manually)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -115,6 +117,58 @@ To get a local copy up and running follow these steps.
 - Install Docker: Follow the official [tutorial](https://docs.docker.com/install/).
 
 ### Installation
+
+To install the project there are two alternatives:
+- Using Docker Compose;
+- Creating Docker containers manually.
+
+#### Using Docker Compose
+
+1. Clone the repository and navigate to the project directory:
+
+   ```sh
+   Using ssh:
+
+   git clone git@github.com:tukno/gobarber-api.git
+   cd gobarber-api
+
+   Or using https:
+
+   git clone https://github.com/tukno/gobarber-api.git
+   cd gobarber-api
+   ```
+
+2. Create the `.env` file for the environment variables values of the application. You can use the `.env.example` as a template:
+
+   ```sh
+   cp .env.example .env
+   ```
+
+   Edit the file and set the values for the mailing service, relational and non-relational database services and Sentry token.
+
+   For the mailing service you can use [Mailtrap](https://mailtrap.io/) to create a email for development and testing purposes.
+
+   For the Sentry DSN token its necessary to create an account in [Sentry](https://sentry.io/signup/) and follow the instructions to generate it.
+
+   Make sure the values were declared because they are used in the `docker-compose.yml` file to create the containers.
+
+3. Create and start the containers using Composer. Open a terminal window and run the following command:
+
+   ```sh
+   docker-compose up
+   ```
+
+4. Run sequelize migrations to create the PostgreSQL database tables:
+
+   ```sh
+   yarn sequelize db:migrate
+   ```
+
+5. At this moment the GoBarber API service runs at: `http://localhost:3333`
+
+6. You are done with configuration! I hope everything is alright and you are ready to code! :tada:
+
+#### Creating containers manually
 
 1. Create Docker containers, run the following commands in a terminal (feel free to change the container names and passwords as you wish):
 
@@ -185,6 +239,10 @@ To get a local copy up and running follow these steps.
    ```
 
    Edit the file and set the values according to the values previously used during the creation of the containers.
+
+    For the mailing service you can use [Mailtrap](https://mailtrap.io/) to create a email for development and testing purposes.
+
+   For the Sentry DSN token its necessary to create an account in [Sentry](https://sentry.io/signup/) and follow the instructions to generate it.
 
 6. Run sequelize migrations to create the database tables:
 
