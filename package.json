@@ -37,9 +37,16 @@
     "sucrase": "^3.10.1"
   },
   "scripts": {
-    "build": "yarn && sucrase ./src -d ./dist --transforms imports",
+    "build": "yarn clean && yarn && yarn build-sucrase && yarn build-email",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-sucrase": "sucrase ./src -d ./dist --transforms imports",
+    "build-email": "cp -r ./src/app/views ./dist/app/",
     "start": "node dist/server.js & node dist/queue.js",
     "dev": "nodemon src/server.js",
     "queue": "nodemon src/queue.js"
+  },
+  "engines": {
+    "node": "10.16.0",
+    "yarn": "1.21.1"
   }
 }
