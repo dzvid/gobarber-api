@@ -33,10 +33,7 @@ class Database {
 
   // configuração MongoDB
   mongo() {
-    const { MONGO_HOST, MONGO_PORT, MONGO_NAME } = process.env;
-    const mongoURI = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_NAME}`;
-
-    this.mongoConnection = mongoose.connect(mongoURI, {
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useFindAndModify: true,
       useUnifiedTopology: true,

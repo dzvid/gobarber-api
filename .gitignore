@@ -4,6 +4,7 @@
 
 # Images/files uploaded by the user
 /tmp
+!/tmp/uploads/.gitkeep
 
 # Production build of the app
 /dist
