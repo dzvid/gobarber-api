@@ -2,13 +2,15 @@ version: '3'
 
 services:
   gobarber-api:
-    image: thehiddenbuddy/gobarber-api
+    build: .
+    image: thehiddenbuddy/gobarber-api:latest
     container_name: gobarber-api
+    volumes:
+      - .:/home/node/api
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DB_HOST=gobarber-postgres
-      - REDIS_HOST=gobarber-redis
-      - MONGO_HOST=gobarber-mongo
+      - MONGO_URL=mongodb://gobarber-mongo:27017/gobarber
     restart: always
     ports:
       - '3333:3333'
@@ -39,25 +41,24 @@ services:
     image: mongo
     container_name: gobarber-mongo
     restart: always
-    environment:
-      - MONGO_HOST=gobarber-mongo
     volumes:
       - gobarber-mongo-data:/data/db
     ports:
-      - '${MONGO_PORT}:27017'
+      - '27017:27017'
     networks:
       - gobarber-network
 
   gobarber-redis:
-    image: redis:alpine
+    image: bitnami/redis:latest
     container_name: gobarber-redis
     restart: always
     environment:
-      - REDIS_HOST=gobarber-redis
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
       - gobarber-redis-data:/data
     ports:
-      - '${REDIS_PORT}:6379'
+      - '6379:6379'
     networks:
       - gobarber-network
 

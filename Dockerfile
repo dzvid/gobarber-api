@@ -13,8 +13,7 @@ RUN yarn
 COPY --chown=node:node . .
 
 # Transpile code
-RUN yarn sucrase ./src -d ./dist --transforms imports \
-  && cp -r ./src/app/views ./dist/app/
+RUN yarn build
 
 
 CMD ["yarn", "start"]
