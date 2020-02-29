@@ -36,7 +36,7 @@
     <a href="https://github.com/tukno/gobarber-api"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="#">View Demo</a>
+    <a href="https://tukno-gobarber-api.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/tukno/gobarber-api/issues">Report Bug</a>
     ·
@@ -119,6 +119,7 @@ To get a local copy up and running follow these steps.
 ### Installation
 
 To install the project there are two alternatives:
+
 - Using Docker Compose;
 - Creating Docker containers manually.
 
@@ -240,7 +241,7 @@ To install the project there are two alternatives:
 
    Edit the file and set the values according to the values previously used during the creation of the containers.
 
-    For the mailing service you can use [Mailtrap](https://mailtrap.io/) to create a email for development and testing purposes.
+   For the mailing service you can use [Mailtrap](https://mailtrap.io/) to create a email for development and testing purposes.
 
    For the Sentry DSN token its necessary to create an account in [Sentry](https://sentry.io/signup/) and follow the instructions to generate it.
 
