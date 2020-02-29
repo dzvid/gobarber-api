@@ -6,7 +6,7 @@ services:
     image: thehiddenbuddy/gobarber-api:latest
     container_name: gobarber-api
     volumes:
-      - .:/home/node/api
+      - gobarber-api-data:/home/node/api/tmp
     environment:
       - NODE_ENV=development
       - DB_HOST=gobarber-postgres
@@ -66,6 +66,7 @@ volumes:
   gobarber-postgres-data:
   gobarber-mongo-data:
   gobarber-redis-data:
+  gobarber-api-data:
 
 networks:
   gobarber-network:
