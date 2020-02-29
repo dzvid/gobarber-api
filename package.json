@@ -23,6 +23,8 @@
     "pg-hstore": "^2.3.3",
     "redis": "^3.0.2",
     "sequelize": "^5.16.0",
+    "sequelize-cli": "^5.5.0",
+    "sucrase": "^3.10.1",
     "youch": "^2.0.10",
     "yup": "^0.27.0"
   },
@@ -33,14 +35,12 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.2",
-    "sequelize-cli": "^5.5.0",
-    "sucrase": "^3.10.1"
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "build": "yarn clean && yarn && yarn build-sucrase && yarn build-email",
     "clean": "rm -rf dist && mkdir dist",
-    "build-sucrase": "yarn sucrase ./src -d ./dist --transforms imports",
+    "build-sucrase": "sucrase ./src -d ./dist --transforms imports",
     "build-email": "cp -r ./src/app/views ./dist/app/",
     "start": "node dist/server.js & node dist/queue.js",
     "dev": "nodemon src/server.js",
