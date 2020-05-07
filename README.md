@@ -24,7 +24,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/tukno/gobarber-api">
+  <a href="https://github.com/dzvid/gobarber-api">
     <img src="logo-purple.svg" alt="Logo" width="200" height="50">
   </a>
 
@@ -33,14 +33,14 @@
   <p align="center">
     Backend module
     <br />
-    <a href="https://github.com/tukno/gobarber-api"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/dzvid/gobarber-api"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://tukno-gobarber-api.herokuapp.com/">View Demo</a>
     ·
-    <a href="https://github.com/tukno/gobarber-api/issues">Report Bug</a>
+    <a href="https://github.com/dzvid/gobarber-api/issues">Report Bug</a>
     ·
-    <a href="https://github.com/tukno/gobarber-api/issues">Request Feature</a>
+    <a href="https://github.com/dzvid/gobarber-api/issues">Request Feature</a>
   </p>
 </p>
 
@@ -130,12 +130,12 @@ To install the project there are two alternatives:
    ```sh
    Using ssh:
 
-   git clone git@github.com:tukno/gobarber-api.git
+   git clone git@github.com:dzvid/gobarber-api.git
    cd gobarber-api
 
    Or using https:
 
-   git clone https://github.com/tukno/gobarber-api.git
+   git clone https://github.com/dzvid/gobarber-api.git
    cd gobarber-api
    ```
 
@@ -211,10 +211,10 @@ To install the project there are two alternatives:
 
    ```sh
    Using ssh:
-   git clone git@github.com:tukno/gobarber-api.git
+   git clone git@github.com:dzvid/gobarber-api.git
 
    Or using https:
-   git clone https://github.com/tukno/gobarber-api.git
+   git clone https://github.com/dzvid/gobarber-api.git
    ```
 
 4. Install the project dependencies:
@@ -279,7 +279,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_ --
 
 <!-- ## Roadmap
 
-See the [open issues](https://github.com/tukno/gobarber-api/issues) for a list of proposed features (and known issues). -->
+See the [open issues](https://github.com/dzvid/gobarber-api/issues) for a list of proposed features (and known issues). -->
 
 <!-- CONTRIBUTING -->
 
@@ -305,7 +305,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 David Oliveira - oliveiradavid.dev@gmail.com
 
-Project Link: [https://github.com/tukno/gobarber-api](https://github.com/tukno/gobarber-api)
+Project Link: [https://github.com/dzvid/gobarber-api](https://github.com/dzvid/gobarber-api)
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -318,15 +318,15 @@ Project Link: [https://github.com/tukno/gobarber-api](https://github.com/tukno/g
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/tukno/gobarber-api.svg?style=flat-square
-[contributors-url]: https://github.com/tukno/gobarber-api/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/tukno/gobarber-api.svg?style=flat-square
-[forks-url]: https://github.com/tukno/gobarber-api/network/members
-[stars-shield]: https://img.shields.io/github/stars/tukno/gobarber-api.svg?style=flat-square
-[stars-url]: https://github.com/tukno/gobarber-api/stargazers
-[issues-shield]: https://img.shields.io/github/issues/tukno/gobarber-api.svg?style=flat-square
-[issues-url]: https://github.com/tukno/gobarber-api/issues
-[license-shield]: https://img.shields.io/github/license/tukno/gobarber-api.svg?style=flat-square
-[license-url]: https://github.com/tukno/gobarber-api/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/dzvid/gobarber-api.svg?style=flat-square
+[contributors-url]: https://github.com/dzvid/gobarber-api/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/dzvid/gobarber-api.svg?style=flat-square
+[forks-url]: https://github.com/dzvid/gobarber-api/network/members
+[stars-shield]: https://img.shields.io/github/stars/dzvid/gobarber-api.svg?style=flat-square
+[stars-url]: https://github.com/dzvid/gobarber-api/stargazers
+[issues-shield]: https://img.shields.io/github/issues/dzvid/gobarber-api.svg?style=flat-square
+[issues-url]: https://github.com/dzvid/gobarber-api/issues
+[license-shield]: https://img.shields.io/github/license/dzvid/gobarber-api.svg?style=flat-square
+[license-url]: https://github.com/dzvid/gobarber-api/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/tukno
+[linkedin-url]: https://linkedin.com/in/dzvid
