@@ -21,7 +21,7 @@
     "nodemailer-express-handlebars": "^3.1.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "sequelize": "^5.16.0",
     "sequelize-cli": "^5.5.0",
     "sucrase": "^3.10.1",
